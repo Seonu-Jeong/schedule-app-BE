@@ -45,7 +45,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
     @Override
     public List<ScheduleResponseDto> findScheduleByAuthorAndModificationDate(String author, String modificationDate) {
 
-        String query = "select * from scheduel where author = "+author;
+        String query = "select * from schedule where user_id = (SELECT id FROM user WHERE name = '"+
+                author+"')";
 
         if(modificationDate != null){
             query += " and modification_date = "+modificationDate;
@@ -66,8 +67,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
                         rs.getLong("id"),
                         rs.getString("todo"),
                         rs.getString("modification_date"),
-                        rs.getString("creation_date"),
-                        rs.getString("author")
+                        rs.getString("creation_date")
                 );
             }
 
@@ -88,12 +88,12 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
     @Override
     public int updateSchedule(Long id, ScheduleRequestDto requestDto) {
 
-        return jdbcTemplate.update("update schedule set todo = ?, author = ? where id = ?",
-                requestDto.getTodo(), requestDto.getAuthor(), id);
+        return jdbcTemplate.update("update schedule set todo = ? where id = ?",
+                requestDto.getTodo(), id);
     }
 
     @Override
     public void deleteSchedule(Long id) {
-        jdbcTemplate.update("delete schedule where id = ?", id);
+        jdbcTemplate.update("delete from schedule where id = ?", id);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.schedule.repository.impl;
 
-import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.dto.UserDto;
 import com.example.schedule.repository.UserRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,6 +27,22 @@ public class JdbcTemplateUserRepository implements UserRepository {
 
         return result.stream().findFirst();
     }
+
+    @Override
+    public Optional<UserDto> findUserByScheduleId(Long id) {
+        List<UserDto> result = jdbcTemplate.query("select * from user where id = (select user_id from schedule " +
+                        "where id = ?)",
+                userRowMapper(), id);
+
+        return result.stream().findFirst();
+    }
+
+    @Override
+    public void updateUser(UserDto userDto, String author) {
+        jdbcTemplate.update("update user set name = ? where id = ?",
+                author, userDto.getId());
+    }
+
 
     private RowMapper<UserDto> userRowMapper() {
         return new RowMapper<UserDto>() {

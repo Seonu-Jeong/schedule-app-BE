@@ -8,7 +8,6 @@ import lombok.Getter;
 public class ScheduleResponseDto {
     private long id;
     private String todo;
-    private String modification_date;
-    private String creation_date;
-    private String author;
+    private String modificationDate;
+    private String creationDate;
 }

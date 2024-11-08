@@ -52,7 +52,16 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public int updateSchedule(Long id, ScheduleRequestDto requestDto) {
+    @Transactional
+    public int updateSchedule(Long id, ScheduleRequestDto requestDto) throws Exception{
+
+        Optional<UserDto> user = userRepository.findUserByScheduleId(id);
+
+        if(user.isPresent())
+            userRepository.updateUser(user.get(), requestDto.getAuthor());
+        else
+            throw new Exception("no exist user");
+
         return scheduleRepository.updateSchedule(id, requestDto);
     }
 

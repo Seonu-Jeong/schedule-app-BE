@@ -13,7 +13,7 @@ public interface ScheduleService {
 
     ScheduleResponseDto findScheduleById(Long id);
 
-    int updateSchedule(Long id, ScheduleRequestDto requestDto);
+    int updateSchedule(Long id, ScheduleRequestDto requestDto) throws Exception;
 
     void deleteSchedule(Long id);
 }

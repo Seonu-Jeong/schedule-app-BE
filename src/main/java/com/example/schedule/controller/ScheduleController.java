@@ -19,7 +19,7 @@ public class ScheduleController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
+    public ResponseEntity<Void> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
 
         Long registered_schedule_id = scheduleService.saveSchedule(requestDto);
 
@@ -29,15 +29,15 @@ public class ScheduleController {
             httpStatus = HttpStatus.BAD_REQUEST;
         }
 
-        return new ResponseEntity<>(registered_schedule_id, httpStatus);
+        return new ResponseEntity<>(httpStatus);
     }
 
 
     @GetMapping
     public List<ScheduleResponseDto> findScheduleList(
-            @RequestParam(required = false) String modification_date, @RequestParam String author) {
+            @RequestParam(required = false) String modificationDate, @RequestParam String author) {
 
-        List<ScheduleResponseDto> responseList = scheduleService.findConditionSchedule(author, modification_date);
+        List<ScheduleResponseDto> responseList = scheduleService.findConditionSchedule(author, modificationDate);
 
         return responseList;
     }
@@ -51,10 +51,17 @@ public class ScheduleController {
 
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Integer> updateSchedule(
+    public ResponseEntity<Void> updateSchedule(
             @PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
 
-        return new ResponseEntity<>(scheduleService.updateSchedule(id, requestDto), HttpStatus.OK);
+        try{
+            scheduleService.updateSchedule(id, requestDto);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
