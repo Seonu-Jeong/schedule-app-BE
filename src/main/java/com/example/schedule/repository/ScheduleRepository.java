@@ -1,15 +1,14 @@
-package com.example.schedule.service;
+package com.example.schedule.repository;
 
 import com.example.schedule.dto.ScheduleRequestDto;
 import com.example.schedule.dto.ScheduleResponseDto;
 
 import java.util.List;
 
-public interface ScheduleService {
+public interface ScheduleRepository {
+    Long saveSchedule(ScheduleRequestDto requestDto, Long id);
 
-    Long saveSchedule(ScheduleRequestDto requestDto);
-
-    List<ScheduleResponseDto> findConditionSchedule(String author, String modification_date);
+    List<ScheduleResponseDto> findScheduleByAuthorAndModificationDate(String author, String modificationDate);
 
     ScheduleResponseDto findScheduleById(Long id);
 
