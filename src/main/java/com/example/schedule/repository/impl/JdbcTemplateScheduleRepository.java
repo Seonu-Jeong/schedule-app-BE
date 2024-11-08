@@ -56,6 +56,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         return jdbcTemplate.query(query, scheduleRowMapper());
     }
 
+
+
     private RowMapper<ScheduleResponseDto> scheduleRowMapper() {
         return new RowMapper<ScheduleResponseDto>() {
             @Override
@@ -70,5 +72,16 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
             }
 
         };
+    }
+
+    @Override
+    public ScheduleResponseDto findScheduleById(Long id) {
+        List<ScheduleResponseDto> result = jdbcTemplate.query("select * from schedule where id = ?", scheduleRowMapper(), id);
+
+        if(result.isEmpty()){
+            return null;
+        }
+
+        return result.get(0);
     }
 }
