@@ -4,8 +4,10 @@ import com.example.schedule.dto.ScheduleRequestDto;
 import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.dto.UserDto;
 import com.example.schedule.repository.ScheduleRepository;
+import com.example.schedule.repository.UserRepository;
 import com.example.schedule.service.ScheduleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +25,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    @Transactional
     public Long saveSchedule(ScheduleRequestDto requestDto) {
 
         Optional<UserDto> user = userRepository.findUserByNameAndPassword(
