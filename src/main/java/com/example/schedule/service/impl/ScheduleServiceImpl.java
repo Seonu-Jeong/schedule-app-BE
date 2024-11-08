@@ -1,11 +1,12 @@
 package com.example.schedule.service.impl;
 
 import com.example.schedule.dto.ScheduleRequestDto;
+import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.dto.UserDto;
 import com.example.schedule.service.ScheduleService;
-import org.apache.catalina.UserDatabase;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,4 +36,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         return result;
     }
+
+    @Override
+    public List<ScheduleResponseDto> findConditionSchedule(String author, String modification_date) {
+        return scheduleRepository.findScheduleByAuthorAndModificationDate(author, modification_date);
+    }
+
+
+
+
 }
