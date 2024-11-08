@@ -52,7 +52,10 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleRepository.updateSchedule(id, requestDto);
     }
 
-
+    @Override
+    public void deleteSchedule(Long id) {
+        scheduleRepository.deleteSchedule(id);
+    }
 
 
 }
