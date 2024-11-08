@@ -42,7 +42,10 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleRepository.findScheduleByAuthorAndModificationDate(author, modification_date);
     }
 
-
+    @Override
+    public ScheduleResponseDto findScheduleById(Long id) {
+        return scheduleRepository.findScheduleById(id);
+    }
 
 
 }
