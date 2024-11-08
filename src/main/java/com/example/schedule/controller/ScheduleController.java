@@ -1,11 +1,14 @@
 package com.example.schedule.controller;
 
 import com.example.schedule.dto.ScheduleRequestDto;
+import com.example.schedule.dto.ScheduleResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 @RequestMapping("/api/schedules")
 @RestController
@@ -29,6 +32,19 @@ public class ScheduleController {
         }
 
         return new ResponseEntity<>(registered_schedule_id, httpStatus);
+    }
+
+
+    @GetMapping
+    public List<ScheduleResponseDto> findScheduleList(
+            @RequestParam(required = false) String modification_date,
+            @RequestParam String author
+    ) {
+
+        List<ScheduleResponseDto> responseList = scheduleServiece.findConditionSchedule(
+                author, modification_date);
+
+        return responseList;
     }
 
 
