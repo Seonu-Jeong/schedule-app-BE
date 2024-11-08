@@ -3,6 +3,7 @@ package com.example.schedule.service.impl;
 import com.example.schedule.dto.ScheduleRequestDto;
 import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.dto.UserDto;
+import com.example.schedule.repository.ScheduleRepository;
 import com.example.schedule.service.ScheduleService;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +49,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public ScheduleResponseDto updateSchedule(Long id, ScheduleRequestDto requestDto) {
+    public int updateSchedule(Long id, ScheduleRequestDto requestDto) {
         return scheduleRepository.updateSchedule(id, requestDto);
     }
 
