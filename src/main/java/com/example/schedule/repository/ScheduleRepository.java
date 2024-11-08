@@ -12,7 +12,7 @@ public interface ScheduleRepository {
 
     ScheduleResponseDto findScheduleById(Long id);
 
-    ScheduleResponseDto updateSchedule(Long id, ScheduleRequestDto requestDto);
+    int updateSchedule(Long id, ScheduleRequestDto requestDto);
 
     void deleteSchedule(Long id);
 }
